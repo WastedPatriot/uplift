@@ -1,0 +1,5 @@
+#!/bin/sh
+# Run the checkout without installing the console script.
+ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd) || exit 1
+export PYTHONPATH="$ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
+exec python3 -m uplift "$@"

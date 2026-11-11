@@ -1,0 +1,52 @@
+[project]
+name = "uplift"
+version = "0.1.0"
+description = "Local privilege-boundary checks for Linux and Windows labs"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "WastedPatriot" }]
+keywords = ["security", "linux", "windows", "audit", "ctf"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "ruff>=0.6"]
+
+[project.scripts]
+uplift = "uplift.cli:console"
+
+[project.urls]
+Homepage = "https://github.com/WastedPatriot/uplift"
+Repository = "https://github.com/WastedPatriot/uplift"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+uplift = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
