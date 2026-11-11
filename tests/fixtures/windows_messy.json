@@ -1,0 +1,69 @@
+{
+  "label": "lab-windows",
+  "os": "windows",
+  "notes": "Fake registry and service list. LabPassword! must not be copied into a report.",
+  "user": {"name": "student", "uid": 1000, "gids": [1000], "groups": ["Users"]},
+  "env": {
+    "PATH": "C:\\Users\\student\\bin;C:\\Windows\\system32",
+    "HOME": "C:\\Users\\student"
+  },
+  "privileges": ["SeChangeNotifyPrivilege", "SeImpersonatePrivilege", "SeDebugPrivilege"],
+  "services": [
+    {
+      "name": "VulnAgent",
+      "image_path": "C:\\Program Files\\Vuln Agent\\agent.exe",
+      "account": "LocalSystem",
+      "start": "auto",
+      "binary_writable": false
+    },
+    {
+      "name": "Helper",
+      "image_path": "\"C:\\Program Files\\Helper\\helper.exe\"",
+      "account": "LocalSystem",
+      "start": "auto",
+      "binary_writable": true
+    },
+    {
+      "name": "Spooler",
+      "image_path": "C:\\Windows\\System32\\svchost.exe -k netsvcs",
+      "account": "NT AUTHORITY\\NetworkService",
+      "start": "auto"
+    }
+  ],
+  "registry": {
+    "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer": {
+      "AlwaysInstallElevated": 1
+    },
+    "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer": {
+      "AlwaysInstallElevated": 1
+    },
+    "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon": {
+      "AutoAdminLogon": "1",
+      "DefaultUserName": "Administrator",
+      "DefaultPassword": "LabPassword!"
+    }
+  },
+  "files": {
+    "C:\\Users\\student\\bin": {
+      "type": "dir",
+      "mode": "0755",
+      "uid": 1000,
+      "gid": 1000,
+      "writable": true
+    },
+    "C:\\Windows\\system32": {
+      "type": "dir",
+      "mode": "0755",
+      "uid": 0,
+      "gid": 0,
+      "writable": false
+    },
+    "C:\\Windows\\Panther\\Unattend.xml": {
+      "type": "file",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0,
+      "content": "<Password>LabPassword!</Password>"
+    }
+  }
+}

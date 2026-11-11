@@ -1,0 +1,75 @@
+{
+  "label": "lab-linux",
+  "os": "linux",
+  "notes": "Sample lab image. The hash and library name are fake and must not appear in reports.",
+  "user": {"name": "student", "uid": 1000, "gids": [1000, 27], "groups": ["student", "sudo"]},
+  "env": {
+    "PATH": "/home/student/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "HOME": "/home/student"
+  },
+  "kernel": "4.15.0-20-generic",
+  "sudo_l": "Matching Defaults entries for student on lab:\n    env_reset, env_keep+=LD_PRELOAD\nUser student may run the following commands on lab:\n    (ALL) NOPASSWD: /usr/bin/find\n",
+  "files": {
+    "/bin": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/sbin": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/usr/bin": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/usr/sbin": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/usr/local/bin": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/usr/local/sbin": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/home/student/bin": {"type": "dir", "mode": "0755", "uid": 1000, "gid": 1000},
+    "/usr/bin/find": {"type": "file", "mode": "4755", "uid": 0, "gid": 0},
+    "/usr/bin/sudo": {"type": "file", "mode": "4755", "uid": 0, "gid": 0},
+    "/usr/bin/python3.11": {
+      "type": "file",
+      "mode": "0755",
+      "uid": 0,
+      "gid": 0,
+      "capabilities": ["cap_setuid=ep"]
+    },
+    "/usr/bin/ping": {
+      "type": "file",
+      "mode": "0755",
+      "uid": 0,
+      "gid": 0,
+      "capabilities": ["cap_net_raw=ep"]
+    },
+    "/etc": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/etc/passwd": {
+      "type": "file",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0,
+      "content": "root:x:0:0:root:/root:/bin/bash\nstudent:x:1000:1000::/home/student:/bin/bash\ntoor:x:0:0::/root:/bin/bash\n"
+    },
+    "/etc/shadow": {
+      "type": "file",
+      "mode": "0640",
+      "uid": 0,
+      "gid": 42,
+      "content": "root:$6$SECRET_HASH_VALUE:19000:0:99999:7:::\n"
+    },
+    "/etc/cron.d": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/etc/cron.d/backup": {
+      "type": "file",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0,
+      "content": "*/15 * * * * root /opt/scripts/backup.sh\n"
+    },
+    "/opt/scripts": {"type": "dir", "mode": "0755", "uid": 0, "gid": 0},
+    "/opt/scripts/backup.sh": {
+      "type": "file",
+      "mode": "0666",
+      "uid": 0,
+      "gid": 0,
+      "content": "#!/bin/sh\n/usr/bin/rsync /etc /var/backups/etc\n"
+    },
+    "/etc/ld.so.preload": {
+      "type": "file",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0,
+      "content": "/opt/libs/EVIL_LIB_PATH.so\n"
+    }
+  }
+}
