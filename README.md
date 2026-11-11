@@ -191,4 +191,4 @@ The tests build fake filesystems and fake registries. They do not need root, and
 
 ## Licence
 
-[MIT](LICENSE). Copyright 2026 WastedPatriot.
+[MIT](LICENSE). Copyright 2026 WastedPatriot. Problems in the tool itself, as opposed to findings about a host, go through [SECURITY.md](SECURITY.md).
